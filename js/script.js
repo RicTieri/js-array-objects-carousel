@@ -28,29 +28,37 @@ const images = [
   }
 ];
 
-images.forEach((element)=>{
-  imgEl = document.createElement('img');
-  imgEl.src = element.image;
-  carousel.appendChild(imgEl);
+images.forEach((element) => {
+  let card = 
+  `
+  <div class="carousel-card">
+    <img src="${element.image}" alt="${element.title}">
+    <div class="caption">
+      <h1>${element.title}</h1>
+      <p>${element.text}</p>
+    </div>
+  </div>
+  `;
+  carousel.innerHTML += card;
 });
 
-const carouselImage = document.querySelectorAll('#carousel img');
-carouselImage[activeIndex].classList.add('active');
+const carouselCard = document.querySelectorAll('.carousel-card');
+carouselCard[activeIndex].classList.add('active');
 
-btnDown.addEventListener('click', function(){
-  carouselImage[activeIndex].classList.remove('active');
+btnDown.addEventListener('click', function () {
+  carouselCard[activeIndex].classList.remove('active');
   activeIndex = activeIndex + 1;
-  if(activeIndex == carouselImage.length){
+  if (activeIndex == carouselCard.length) {
     activeIndex = 0;
   }
-  carouselImage[activeIndex].classList.add('active');
+  carouselCard[activeIndex].classList.add('active');
 });
 
-btnUp.addEventListener('click', function(){
-  carouselImage[activeIndex].classList.remove('active');
+btnUp.addEventListener('click', function () {
+  carouselCard[activeIndex].classList.remove('active');
   activeIndex = activeIndex - 1;
-  if(activeIndex < 0){
-    activeIndex = carouselImage.length -1;
+  if (activeIndex < 0) {
+    activeIndex = carouselCard.length - 1;
   }
-  carouselImage[activeIndex].classList.add('active');
+  carouselCard[activeIndex].classList.add('active');
 });
