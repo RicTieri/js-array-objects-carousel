@@ -4,6 +4,7 @@ const btnUp = document.getElementById('pic_up');
 const btnDown = document.getElementById('pic_down');
 const btnPlay = document.getElementById('play');
 const btnReverse = document.getElementById('reverse');
+let update;
 let play = true;
 let showDirection = true;
 
@@ -60,56 +61,35 @@ const thumbnailsCard = document.querySelectorAll('.thumbnails-card');
 carouselCard[activeIndex].classList.add('active');
 thumbnailsCard[activeIndex].classList.add('select');
 
-update(showDirection);
+
 
 btnPlay.addEventListener('click', () => {
   if (play) {
     play = false;
-    clearInterval(update)
+    clearInterval(update);
     btnPlay.innerHTML = '<i class="fa-solid fa-pause"></i>';
   } else {
     play = true;
     btnPlay.innerHTML = '<i class="fa-solid fa-play"></i>';
-    update(showDirection);
+    refresh(showDirection);
   }
 })
 
 btnReverse.addEventListener('click', () => {
+  play = false;
+  clearInterval(update);
   if (showDirection) {
     showDirection = false;
-    clearInterval(update);
-    update(showDirection);
+    play = true;
+    refresh(showDirection);
     btnReverse.innerHTML = '<i class="fa-solid fa-backward"></i>';
   } else {
     showDirection = true;
-    clearInterval(update);
-    update(showDirection);
+    play = true;
+    refresh(showDirection);
     btnReverse.innerHTML = '<i class="fa-solid fa-backward fa-rotate-180"></i>';
   }
 })
-
-function update(showDirection) {
-  setInterval(() => {
-    if (play) {
-      carouselCard[activeIndex].classList.remove('active');
-      thumbnailsCard[activeIndex].classList.remove('select');
-      if (showDirection) {
-        activeIndex = activeIndex + 1;
-        if (activeIndex == carouselCard.length) {
-          activeIndex = 0;
-        }
-      } else {
-        activeIndex = activeIndex - 1;
-        if (activeIndex < 0) {
-          activeIndex = carouselCard.length - 1;
-        }
-      }
-      thumbnailsCard[activeIndex].classList.add('select');
-      carouselCard[activeIndex].classList.add('active');
-    }
-  }, 3000);
-}
-
 
 btnDown.addEventListener('click', function () {
   carouselCard[activeIndex].classList.remove('active');
@@ -131,5 +111,26 @@ btnUp.addEventListener('click', function () {
   }
   carouselCard[activeIndex].classList.add('active');
   thumbnailsCard[activeIndex].classList.add('select');
-
 });
+
+function refresh(showDirection){
+  update = setInterval(() => {
+    if (play) {
+      carouselCard[activeIndex].classList.remove('active');
+      thumbnailsCard[activeIndex].classList.remove('select');
+      if (showDirection) {
+        activeIndex = activeIndex + 1;
+        if (activeIndex == carouselCard.length) {
+          activeIndex = 0;
+        }
+      } else {
+        activeIndex = activeIndex - 1;
+        if (activeIndex < 0) {
+          activeIndex = carouselCard.length - 1;
+        }
+      }
+      thumbnailsCard[activeIndex].classList.add('select');
+      carouselCard[activeIndex].classList.add('active');
+    }
+  }, 3000);
+}
