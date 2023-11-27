@@ -4,6 +4,7 @@ const btnUp = document.getElementById('pic_up');
 const btnDown = document.getElementById('pic_down');
 const btnPlay = document.getElementById('play');
 const btnReverse = document.getElementById('reverse');
+let play = true;
 
 const images = [
   {
@@ -32,7 +33,7 @@ const images = [
 let activeIndex = 0;
 images.forEach((element) => {
   let carou_card =
-  `
+    `
   <div class="carousel-card">
   <img src="${element.image}" alt="${element.title}">
     <div class="caption">
@@ -58,18 +59,28 @@ const thumbnailsCard = document.querySelectorAll('.thumbnails-card');
 carouselCard[activeIndex].classList.add('active');
 thumbnailsCard[activeIndex].classList.add('select');
 
-const update = setInterval(()=>{
-  carouselCard[activeIndex].classList.remove('active');
-  thumbnailsCard[activeIndex].classList.remove('select');
-  activeIndex = activeIndex + 1;
-  if (activeIndex == carouselCard.length) {
-    activeIndex = 0;
-  }
-  thumbnailsCard[activeIndex].classList.add('select');
-  carouselCard[activeIndex].classList.add('active');
-}, 3000);
 
-btnPlay.addEventListener('click',)
+btnPlay.addEventListener('click', () => {
+  if(play){
+    clearInterval(update)
+  } else{
+    play = true;
+    update;
+  }
+})
+
+const update = setInterval(() => {
+  if (play) {
+    carouselCard[activeIndex].classList.remove('active');
+    thumbnailsCard[activeIndex].classList.remove('select');
+    activeIndex = activeIndex + 1;
+    if (activeIndex == carouselCard.length) {
+      activeIndex = 0;
+    }
+    thumbnailsCard[activeIndex].classList.add('select');
+    carouselCard[activeIndex].classList.add('active');
+  }
+}, 3000);
 
 btnDown.addEventListener('click', function () {
   carouselCard[activeIndex].classList.remove('active');
