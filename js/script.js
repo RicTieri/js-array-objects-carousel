@@ -5,6 +5,7 @@ const btnDown = document.getElementById('pic_down');
 const btnPlay = document.getElementById('play');
 const btnReverse = document.getElementById('reverse');
 let play = true;
+let showDirection = true;
 
 const images = [
   {
@@ -59,28 +60,56 @@ const thumbnailsCard = document.querySelectorAll('.thumbnails-card');
 carouselCard[activeIndex].classList.add('active');
 thumbnailsCard[activeIndex].classList.add('select');
 
+update(showDirection);
 
 btnPlay.addEventListener('click', () => {
-  if(play){
+  if (play) {
+    play = false;
     clearInterval(update)
-  } else{
+    btnPlay.innerHTML = '<i class="fa-solid fa-pause"></i>';
+  } else {
     play = true;
-    update;
+    btnPlay.innerHTML = '<i class="fa-solid fa-play"></i>';
+    update(showDirection);
   }
 })
 
-const update = setInterval(() => {
-  if (play) {
-    carouselCard[activeIndex].classList.remove('active');
-    thumbnailsCard[activeIndex].classList.remove('select');
-    activeIndex = activeIndex + 1;
-    if (activeIndex == carouselCard.length) {
-      activeIndex = 0;
-    }
-    thumbnailsCard[activeIndex].classList.add('select');
-    carouselCard[activeIndex].classList.add('active');
+btnReverse.addEventListener('click', () => {
+  if (showDirection) {
+    showDirection = false;
+    clearInterval(update);
+    update(showDirection);
+    btnReverse.innerHTML = '<i class="fa-solid fa-backward"></i>';
+  } else {
+    showDirection = true;
+    clearInterval(update);
+    update(showDirection);
+    btnReverse.innerHTML = '<i class="fa-solid fa-backward fa-rotate-180"></i>';
   }
-}, 3000);
+})
+
+function update(showDirection) {
+  setInterval(() => {
+    if (play) {
+      carouselCard[activeIndex].classList.remove('active');
+      thumbnailsCard[activeIndex].classList.remove('select');
+      if (showDirection) {
+        activeIndex = activeIndex + 1;
+        if (activeIndex == carouselCard.length) {
+          activeIndex = 0;
+        }
+      } else {
+        activeIndex = activeIndex - 1;
+        if (activeIndex < 0) {
+          activeIndex = carouselCard.length - 1;
+        }
+      }
+      thumbnailsCard[activeIndex].classList.add('select');
+      carouselCard[activeIndex].classList.add('active');
+    }
+  }, 3000);
+}
+
 
 btnDown.addEventListener('click', function () {
   carouselCard[activeIndex].classList.remove('active');
