@@ -17,12 +17,15 @@ main{
 
 .container{
   flex-wrap: wrap;
-  min-width: 1350px;
+  height: 700px;
+  box-shadow: 0px 0px 40px 5px gray;
+  justify-content: flex-start;
+  align-items: start;
 }
 
 #carousel{
   width: 1000px;
-  height: 700px; 
+  height: 100%; 
 }
 
 #carousel .carousel-card.active{
@@ -64,17 +67,23 @@ img{
 
 .thumbnails-card{
   height: calc(100% / 5);
+  filter: blur(3px);
 }
 
 .thumbnails-card.select{
-  border: 4px solid white;
+  border: 5px solid white;
+  filter: blur(0);
+}
+
+.wrapper{
+  position: relative;
 }
 
 #pic_up{
   position: absolute;
-  top:0;
-  right: 50%;
-  margin-top: 2rem;
+  top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -85,13 +94,19 @@ img{
 
 #pic_down{
   position: absolute;
-  bottom: 0;
-  right: 50%;
-  margin-bottom: 2rem;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
   width: 40px;
   height: 40px;
   border-radius: 50%;
   border: none;
-  background-color: rgba(255, 255, 255, .6);
+  background-color: rgba(255, 255, 255, 0.6);
   cursor: pointer;
+}
+
+#pic_down:hover,
+#pic_up:hover{
+  background-color: white;
+  box-shadow: 0 0 10px 2px white;
 }

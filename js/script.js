@@ -2,7 +2,8 @@ const carousel = document.getElementById('carousel');
 const thumbnails = document.getElementById('thumbnails');
 const btnUp = document.getElementById('pic_up');
 const btnDown = document.getElementById('pic_down');
-let activeIndex = 0;
+const btnPlay = document.getElementById('play');
+const btnReverse = document.getElementById('reverse');
 
 const images = [
   {
@@ -28,11 +29,12 @@ const images = [
   }
 ];
 
+let activeIndex = 0;
 images.forEach((element) => {
   let carou_card =
-    `
+  `
   <div class="carousel-card">
-    <img src="${element.image}" alt="${element.title}">
+  <img src="${element.image}" alt="${element.title}">
     <div class="caption">
       <h1>${element.title}</h1>
       <p>${element.text}</p>
@@ -56,6 +58,19 @@ const thumbnailsCard = document.querySelectorAll('.thumbnails-card');
 carouselCard[activeIndex].classList.add('active');
 thumbnailsCard[activeIndex].classList.add('select');
 
+const update = setInterval(()=>{
+  carouselCard[activeIndex].classList.remove('active');
+  thumbnailsCard[activeIndex].classList.remove('select');
+  activeIndex = activeIndex + 1;
+  if (activeIndex == carouselCard.length) {
+    activeIndex = 0;
+  }
+  thumbnailsCard[activeIndex].classList.add('select');
+  carouselCard[activeIndex].classList.add('active');
+}, 3000);
+
+btnPlay.addEventListener('click',)
+
 btnDown.addEventListener('click', function () {
   carouselCard[activeIndex].classList.remove('active');
   thumbnailsCard[activeIndex].classList.remove('select');
@@ -63,8 +78,8 @@ btnDown.addEventListener('click', function () {
   if (activeIndex == carouselCard.length) {
     activeIndex = 0;
   }
-  carouselCard[activeIndex].classList.add('active');
   thumbnailsCard[activeIndex].classList.add('select');
+  carouselCard[activeIndex].classList.add('active');
 });
 
 btnUp.addEventListener('click', function () {
