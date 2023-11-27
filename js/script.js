@@ -1,5 +1,7 @@
 const carousel = document.getElementById('carousel');
 const thumbnails = document.getElementById('thumbnails');
+const btnUp = document.getElementById('pic_up');
+const btnDown = document.getElementById('pic_down');
 let activeIndex = 0;
 
 const images = [
@@ -32,3 +34,23 @@ images.forEach((element)=>{
   carousel.appendChild(imgEl);
 });
 
+const carouselImage = document.querySelectorAll('#carousel img');
+carouselImage[activeIndex].classList.add('active');
+
+btnDown.addEventListener('click', function(){
+  carouselImage[activeIndex].classList.remove('active');
+  activeIndex = activeIndex + 1;
+  if(activeIndex == carouselImage.length){
+    activeIndex = 0;
+  }
+  carouselImage[activeIndex].classList.add('active');
+});
+
+btnUp.addEventListener('click', function(){
+  carouselImage[activeIndex].classList.remove('active');
+  activeIndex = activeIndex - 1;
+  if(activeIndex < 0){
+    activeIndex = carouselImage.length -1;
+  }
+  carouselImage[activeIndex].classList.add('active');
+});
