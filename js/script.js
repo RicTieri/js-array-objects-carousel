@@ -29,8 +29,8 @@ const images = [
 ];
 
 images.forEach((element) => {
-  let card = 
-  `
+  let carou_card =
+    `
   <div class="carousel-card">
     <img src="${element.image}" alt="${element.title}">
     <div class="caption">
@@ -39,26 +39,42 @@ images.forEach((element) => {
     </div>
   </div>
   `;
-  carousel.innerHTML += card;
+
+  let thumb_card =
+    `
+  <div class="thumbnails-card">
+    <img src="${element.image}" alt="${element.title}">
+  </div>
+  `;
+
+  carousel.innerHTML += carou_card;
+  thumbnails.innerHTML += thumb_card;
 });
 
 const carouselCard = document.querySelectorAll('.carousel-card');
+const thumbnailsCard = document.querySelectorAll('.thumbnails-card');
 carouselCard[activeIndex].classList.add('active');
+thumbnailsCard[activeIndex].classList.add('select');
 
 btnDown.addEventListener('click', function () {
   carouselCard[activeIndex].classList.remove('active');
+  thumbnailsCard[activeIndex].classList.remove('select');
   activeIndex = activeIndex + 1;
   if (activeIndex == carouselCard.length) {
     activeIndex = 0;
   }
   carouselCard[activeIndex].classList.add('active');
+  thumbnailsCard[activeIndex].classList.add('select');
 });
 
 btnUp.addEventListener('click', function () {
   carouselCard[activeIndex].classList.remove('active');
+  thumbnailsCard[activeIndex].classList.remove('select');
   activeIndex = activeIndex - 1;
   if (activeIndex < 0) {
     activeIndex = carouselCard.length - 1;
   }
   carouselCard[activeIndex].classList.add('active');
+  thumbnailsCard[activeIndex].classList.add('select');
+
 });
